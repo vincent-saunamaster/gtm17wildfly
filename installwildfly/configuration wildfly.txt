@@ -1,0 +1,12 @@
+﻿- à mettre dans fichier wildfly/standalone/configuration/standalone.xml après <driver name="h2" module="com.h2database.h2"><xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class></driver>
+									
+<driver name="mysql" module="com.mysql.driver">
+   <driver-class>com.mysql.jdbc.Driver</driver-class>
+</driver>
+
+
+- Dossier mysql à mettre dans C:\wildfly-10.1.0.Final\modules\system\layers\base\com
+
+
+- exemple de fichier persistence.xml pour projet EJB avec <jta-data-source>java:/MySqlDS</jta-data-source>
+
