@@ -5,7 +5,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 import metier.Produit;
 
@@ -15,15 +14,15 @@ import metier.Produit;
 @Stateless
 public class ProduitEJBImpl implements ProduitRemote, ProduitLocal {
 
-	@PersistenceContext(name="ejb-pu")
+	@PersistenceContext(name = "ejb-pu")
 	private EntityManager em;
-	
-    /**
-     * Default constructor. 
-     */
-    public ProduitEJBImpl() {
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * Default constructor.
+	 */
+	public ProduitEJBImpl() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public int ajouterProduit(Produit p) {
@@ -42,22 +41,19 @@ public class ProduitEJBImpl implements ProduitRemote, ProduitLocal {
 	@Override
 	public void supprimerProduit(Produit p) {
 		// TODO Auto-generated method stub
-		em.remove(p);
+		em.remove(em.contains(p)? p : em.merge(p));
 	}
 
 	@Override
 	public Produit getProduit(int idProduit) {
 		// TODO Auto-generated method stub
-		Produit p = em.find(Produit.class, idProduit);
-		return p;
+		return em.find(Produit.class, idProduit);
 	}
 
 	@Override
 	public List<Produit> findAll() {
 		// TODO Auto-generated method stub
-		Query q = em.createQuery("SELECT p FROM Produit p");
-		List<Produit> listP = (List<Produit>)q.getResultList();
-		return listP;
+		return em.createQuery("SELECT p FROM Produit p").getResultList();
 	}
 
 }
